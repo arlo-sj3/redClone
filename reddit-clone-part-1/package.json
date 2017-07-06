@@ -17,7 +17,7 @@
     "express": "^4.14.0",
     "mocha": "^2.5.3",
     "protractor": "latest",
-    "protractor-jasmine2-screenshot-reporter": "latest",
+    "protractor-jasmine2-screenshot-reporter": "latest"
   },
   "dependencies": {
     "angular": "^1.6.0",

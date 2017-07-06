@@ -1,0 +1,130 @@
+<nav class="navbar navbar-default">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      <a class="navbar-brand">Reddit Clone</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    </div>
+  </div>
+</nav>
+
+<main class="container">
+
+  <div class="pull-right">
+    <p><a class="btn btn-info" ng-click='$ctrl.formtoggle()'>New Post</a></p>
+  </div>
+
+  <ul class="nav nav-pills">
+    <li role="presentation" class="active">
+      <input type="search" class="form-control input-sm search-form" placeholder="Filter">
+    </li>
+    <div class="form-inline">
+      <label for="sort">  Sort by </label>
+      <select class="form-control" id="sort">
+          <option>Some text</option>
+          <option>Some text</option>
+        </select>
+    </div>
+  </ul>
+
+  <div class="row">
+    <div class="col-md-8">
+
+      <form name="$ctrl.newpostform" ng-hide="$ctrl.hidden" ng-init="$ctrl.hidden = true" ng-submit="$ctrl.submit()">
+        <div>
+          <label for="title">Title</label>
+
+          <input id="title" name="title" class="form-control" ng-model="$ctrl.newpost.title" ng-required="true" ng-class="{'error':$ctrl.newpostform.title.$touched && $ctrl.newpostform.title.$invalid}">
+        </div>
+
+        <div>
+          <label for="body">Body</label>
+          <textarea id="body" name="body" class="form-control" ng-model="$ctrl.newpost.body" ng-required="true" ng-class="{'error':$ctrl.newpostform.body.$touched && $ctrl.newpostform.body.$invalid}"></textarea>
+        </div>
+
+        <div>
+          <label for="author">Author</label>
+          <input id="author" name="author" class="form-control" ng-model="$ctrl.newpost.author" ng-required="true" ng-class="{'error':$ctrl.newpostform.author.$touched && $ctrl.newpostform.author.$invalid}">
+        </div>
+
+        <div>
+          <label for="image-url">Image URL</label>
+          <input id="image-url" name="image" class="form-control" ng-model="$ctrl.newpost.image" ng-required="true" ng-class="{'error':$ctrl.newpostform.image.$touched && $ctrl.newpostform.image.$invalid}">
+        </div>
+
+        <div class="form-gro">
+          <button type="submit" class="btn btn-primary">
+            Create Post
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+
+      <div class="well" ng-repeat="newpost in $ctrl.posts">
+        <div class="media-left">
+          <img class="media-object" ng-src={{newpost.image}}>
+        </div>
+        <div class="media-body">
+          <h4 class="media-heading">
+              {{newpost.title}}
+              |
+              <a><i ng-click='$ctrl.upvote()' class="glyphicon glyphicon-arrow-up"></i></a>
+              <a><i ng-click='$ctrl.downvote()' class="glyphicon glyphicon-arrow-down"></i></a>
+              {{$ctrl.votes}}
+            </h4>
+          <div class="text-right">
+            {{newpost.author}}
+          </div>
+          <p>
+            {{newpost.body}}
+          </p>
+          <div>
+            <span am-time-ago="newpost.created_at">{{newpost.created_at | date}}</span>
+            <i class="glyphicon glyphicon-comment"></i>
+            <a ng-click="$ctrl.togglecomments()">
+                {{newpost.comments.length}} {{$ctrl.pluralcomment}}
+              </a>
+          </div>
+
+          <div class="row">
+            <div class="col-md-offset-1">
+              <hr>
+              <div>
+                <div>
+
+                </div>
+                <p ng-repeat='comm in newpost.comments' ng-if='!$ctrl.hidecomment'>
+                  <!-- {{newpost.comments}} -->
+                  {{comm}}
+                </p>
+              </div>
+
+                <form class="form-inline" ng-submit="$ctrl.comment(newpost, commenttext)">
+                  <div class="form-group">
+                    <input class="form-control" ng-model="commenttext">
+                  </div>
+                  <div class="form-group">
+                    <input type="submit" class="btn btn-primary">
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!--closing new post div-->
+    </div>
+  </div>
+</main>

@@ -1,0 +1,8 @@
+<form ng-submit="$ctrl.submit()">
+<p><input ng-model="$ctrl.user.firstName" placeholder="First Name" /></p>
+<p><input ng-model="$ctrl.user.nickName" placeholder="Nickname" /></p>
+<p><input ng-model="$ctrl.user.lastName" placeholder="Last Name" /></p>
+<p><input type="submit" ng-click="$ctrl.displayName()" /></p>
+<p ng-hide="$ctrl.hidden" ng-init="$ctrl.hidden = true"> {{$ctrl.user.firstName}}
+ "{{$ctrl.user.nickName}}"
+{{$ctrl.user.lastName}}</p>

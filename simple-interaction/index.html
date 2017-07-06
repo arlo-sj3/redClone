@@ -1,10 +1,40 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Angular Drill</title>
-  </head>
-  <body>
+<html ng-app="app">
 
-  </body>
+<head>
+  <meta charset="utf-8">
+  <title>Angular Drill</title>
+</head>
+
+<body>
+  <name></name>
+
+  <p></p>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.0/angular.js"></script>
+  <script type="text/javascript" src="app.js"></script>
+  <script>
+    angular.module("app", [])
+      .component("name", {
+        controller: function() {
+          const vm = this
+          vm.submit = function() {
+            if (vm.nickName != 0) {
+              console.log(vm.user);
+            } else {
+              console.log(vm.user.firstName + vm.user.lastName);
+            }
+          }
+          vm.displayName = function() {
+      if (this.hidden == false) {
+        this.hidden = true;
+      } else {
+        this.hidden = false;
+      }
+    }
+        },
+        templateUrl: 'template.html'
+      });
+  </script>
+</body>
+
 </html>
