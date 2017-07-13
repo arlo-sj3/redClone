@@ -8,6 +8,8 @@ angular.module('app', [])
       vm.pluralcomment = ' Comments';
       vm.hidecomment = false;
       vm.newpost = {};
+      vm.sortBy = 'Votes';
+      vm.sortByWhat = 'Votes';
 
 
     }
@@ -80,7 +82,7 @@ angular.module('app', [])
     }
 vm.sortvar = function(sortBy){
   vm.sortBy = sortBy
-  if(sortBy == 'votecount'){
+  if(sortBy == '-votecount'){
     vm.sortByWhat = 'Votes'
   } else if(sortBy == 'created_at'){
     vm.sortByWhat = 'Date'

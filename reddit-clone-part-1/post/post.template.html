@@ -26,11 +26,11 @@
       <input type="search" class="form-control input-sm search-form" placeholder="Filter" ng-model="$ctrl.filter">
     </li>
     <li class="form-inline dropdown">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sort By  {{ $ctrl.sortByWhat}} <span class="caret"></span>
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sort By {{ $ctrl.sortByWhat}} <span class="caret"></span>
       </a>
 
       <ul class="dropdown-menu">
-        <li><a ng-click="$ctrl.sortvar('votecount') ">Votes</a></li>
+        <li><a ng-click="$ctrl.sortvar('-votecount') ">Votes</a></li>
         <li><a ng-click="$ctrl.sortvar('created_at')">Date </a></li>
         <li><a ng-click="$ctrl.sortvar ('title')">Title</a></li>
       </ul>
