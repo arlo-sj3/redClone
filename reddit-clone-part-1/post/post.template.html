@@ -23,15 +23,18 @@
 
   <ul class="nav nav-pills">
     <li role="presentation" class="active">
-      <input type="search" class="form-control input-sm search-form" placeholder="Filter">
+      <input type="search" class="form-control input-sm search-form" placeholder="Filter" ng-model="$ctrl.filter">
     </li>
-    <div class="form-inline">
-      <label for="sort">  Sort by </label>
-      <select class="form-control" id="sort">
-          <option>Some text</option>
-          <option>Some text</option>
-        </select>
-    </div>
+    <li class="form-inline dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sort By  {{ $ctrl.sortByWhat}} <span class="caret"></span>
+      </a>
+
+      <ul class="dropdown-menu">
+        <li><a ng-click="$ctrl.sortvar('votecount') ">Votes</a></li>
+        <li><a ng-click="$ctrl.sortvar('created_at')">Date </a></li>
+        <li><a ng-click="$ctrl.sortvar ('title')">Title</a></li>
+      </ul>
+    </li>
   </ul>
 
   <div class="row">
@@ -60,7 +63,8 @@
         </div>
 
         <div class="form-gro">
-          <button type="submit" class="btn btn-primary">
+          <button type="submit" class="btn btn-primary" ng-disabled="$ctrl.newpostform.$invalid"
+          >
             Create Post
           </button>
         </div>
@@ -72,7 +76,7 @@
   <div class="row">
     <div class="col-md-12">
 
-      <div class="well" ng-repeat="newpost in $ctrl.posts">
+      <div class="well" ng-repeat="newpost in $ctrl.posts | orderBy:$ctrl.sortBy | filter: $ctrl.filter" >
         <div class="media-left">
           <img class="media-object" ng-src={{newpost.image}}>
         </div>
@@ -80,9 +84,9 @@
           <h4 class="media-heading">
               {{newpost.title}}
               |
-              <a><i ng-click='$ctrl.upvote()' class="glyphicon glyphicon-arrow-up"></i></a>
-              <a><i ng-click='$ctrl.downvote()' class="glyphicon glyphicon-arrow-down"></i></a>
-              {{$ctrl.votes}}
+              <a><i ng-click='$ctrl.upvote(newpost)' class="glyphicon glyphicon-arrow-up"></i></a>
+              <a><i ng-click='$ctrl.downvote(newpost)' class="glyphicon glyphicon-arrow-down"></i></a>
+              {{newpost.votecount}}
             </h4>
           <div class="text-right">
             {{newpost.author}}
@@ -93,13 +97,15 @@
           <div>
             <span am-time-ago="newpost.created_at">{{newpost.created_at | date}}</span>
             <i class="glyphicon glyphicon-comment"></i>
-            <a ng-click="$ctrl.togglecomments()">
+            <a
+            ng-click="$ctrl.doComment()"ng-click="$ctrl.togglecomments()"
+            >
                 {{newpost.comments.length}} {{$ctrl.pluralcomment}}
               </a>
           </div>
 
-          <div class="row">
-            <div class="col-md-offset-1">
+          <div class="row" ng-hide="$ctrl.hideComm" ng-init="$ctrl.hideComm = true">
+            <div class="col-md-offset-1" >
               <hr>
               <div>
                 <div>
@@ -111,12 +117,17 @@
                 </p>
               </div>
 
-                <form class="form-inline" ng-submit="$ctrl.comment(newpost, commenttext)">
-                  <div class="form-group">
+                <form class="form-inline" ng-submit="$ctrl.comment(newpost, commenttext)"
+                 >
+                  <div class="form-group"
+
+                  >
                     <input class="form-control" ng-model="commenttext">
                   </div>
                   <div class="form-group">
-                    <input type="submit" class="btn btn-primary">
+                    <input type="submit" class="btn btn-primary"
+
+                    >
                   </div>
                 </form>
               </div>

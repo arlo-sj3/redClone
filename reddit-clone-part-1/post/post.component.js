@@ -5,10 +5,13 @@ angular.module('app', [])
 
     vm.$onInit = function() {
       vm.posts = [];
-      vm.pluralcomment = ' comments yet';
+      vm.pluralcomment = ' Comments';
       vm.hidecomment = false;
       vm.newpost = {};
+
+
     }
+
     vm.formtoggle = function() {
       if (this.hidden == false) {
         this.hidden = true;
@@ -16,34 +19,56 @@ angular.module('app', [])
         this.hidden = false;
       }
     }
+
+    vm.doComment = function(){
+      if (this.hideComm == false) {
+        this.hideComm = true;
+      } else {
+        this.hideComm = false;
+      }
+    }
+
     vm.submit = function() {
       vm.newpost.votecount = 0;
       vm.newpost.comments = [];
       vm.newpost.created_at = new Date();
       vm.posts.push(vm.newpost);
-      console.log(vm.newpost);
+      vm.sort = '';
+      console.log(vm.sort)
+      // console.log(vm.newpost);
       delete vm.newpost;
       if (vm.posts.length >= 0) {
         this.hidden = true;
       }
     }
 
+    vm.disable = function(){
+      this.disabled
+    }
+
     vm.comment = function(newpost, newcomment) {
-      console.log(vm.commenttext);
+      if(newcomment){
+      // console.log(vm.commenttext);
       newpost.comments.push(newcomment);
-      console.log(newpost.comments);
+    } else{
+  console.log('nooooo!')
+    }
+      // console.log(newpost.comments);
       if (newpost.comments.length == 1) {
-        vm.pluralcomment = " comment";
+        vm.pluralcomment = " Comment";
       } else {
-        vm.pluralcomment = " comments";
+        vm.pluralcomment = " Comments";
       }
+      // delete newpost.comments.commenttext
     }
-    vm.upvote = function() {
-       vm.votes += 1;
+    vm.upvote = function(newpost) {
+      // console.log(newpost)
+      // console.log(newpost.votecount)
+       newpost.votecount += 1;
     }
-    vm.downvote = function() {
-      if (vm.votes > 0 ) {
-        vm.votes -= 1;
+    vm.downvote = function(newpost) {
+      if (newpost.votecount > 0 ) {
+        newpost.votecount -= 1;
       }
     }
     vm.togglecomments = function() {
@@ -53,6 +78,20 @@ angular.module('app', [])
         vm.hidecomment = true;
       }
     }
+vm.sortvar = function(sortBy){
+  vm.sortBy = sortBy
+  if(sortBy == 'votecount'){
+    vm.sortByWhat = 'Votes'
+  } else if(sortBy == 'created_at'){
+    vm.sortByWhat = 'Date'
+  }else{
+    vm.sortByWhat = 'Title'
+  }
+
+
+  console.log(sortBy)
+}
+
    },
    templateUrl: 'post/post.template.html'
 });
