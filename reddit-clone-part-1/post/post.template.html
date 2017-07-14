@@ -40,7 +40,8 @@
   <div class="row">
     <div class="col-md-8">
 
-      <form name="$ctrl.newpostform" ng-hide="$ctrl.hidden" ng-init="$ctrl.hidden = true" ng-submit="$ctrl.submit()">
+      <form name="$ctrl.newpostform"  ng-submit="$ctrl.submit()"
+      ng-if ="$ctrl.hidden">
         <div>
           <label for="title">Title</label>
 
@@ -110,7 +111,7 @@
           </div>
 
           <div class="row"
-          ng-if='$ctrl.hidecomment' >
+          ng-if='newpost.hidecomment' >
             <div class="col-md-offset-1" >
               <hr>
               <div>

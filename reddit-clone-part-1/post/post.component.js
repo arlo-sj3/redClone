@@ -10,16 +10,13 @@ angular.module('app', [])
       vm.newpost = {};
       vm.sortBy = 'Votes';
       vm.sortByWhat = 'Votes';
-
+      vm.hidden = false;
 
     }
 
     vm.formtoggle = function() {
-      if (this.hidden == false) {
-        this.hidden = true;
-      } else {
-        this.hidden = false;
-      }
+      console.log('clicked');
+      vm.hidden = !vm.hidden;
     }
 
     // vm.doComment = function(){
@@ -40,19 +37,19 @@ angular.module('app', [])
       // console.log(vm.newpost);
       delete vm.newpost;
       if (vm.posts.length >= 0) {
-        this.hidden = true;
+        vm.hidden = false;
       }
+
     }
 
-    vm.disable = function(){
-      this.disabled
-    }
+
 
     vm.comment = function(newpost) {
         newpost.comments.push(vm.commenttext.body);
-        console.log(vm.commenttext.body);
-        console.log(newpost.comments);
+        // console.log(vm.commenttext.body);
+        // console.log(newpost.comments);
         delete vm.commenttext.body;
+        newpost.hidecomment = !newpost.hidecomment;
       }
 
     vm.upvote = function(newpost) {
@@ -67,13 +64,9 @@ angular.module('app', [])
     }
 
     vm.togglecomments = function(newpost) {
-      if (vm.hidecomment == true) {
-        vm.hidecomment = false;
-      } else {
-        vm.hidecomment = true;
-      }
+      newpost.hidecomment = !newpost.hidecomment;
     }
-    
+
 vm.sortvar = function(sortBy){
   vm.sortBy = sortBy
   if(sortBy == '-votecount'){
@@ -83,7 +76,6 @@ vm.sortvar = function(sortBy){
   }else{
     vm.sortByWhat = 'Title'
   }
-
 
   console.log(sortBy)
 }
