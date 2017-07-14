@@ -98,31 +98,37 @@
             <span am-time-ago="newpost.created_at">{{newpost.created_at | date}}</span>
             <i class="glyphicon glyphicon-comment"></i>
             <a
-            ng-click="$ctrl.doComment()"ng-click="$ctrl.togglecomments()"
+             ng-click="$ctrl.togglecomments(newpost)"
+            ng-pluralize count="newpost.comments.length"
+                 when="{'0': '0 Comments',
+                     'one': '1 Comment',
+                     'other': '{} Comments' }"
+
             >
-                {{newpost.comments.length}} {{$ctrl.pluralcomment}}
+                <!-- {{newpost.comments.length}} {{$ctrl.pluralcomment}} -->
               </a>
           </div>
 
-          <div class="row" ng-hide="$ctrl.hideComm" ng-init="$ctrl.hideComm = true">
+          <div class="row"
+          ng-if='$ctrl.hidecomment' >
             <div class="col-md-offset-1" >
               <hr>
               <div>
                 <div>
 
                 </div>
-                <p ng-repeat='comm in newpost.comments' ng-if='!$ctrl.hidecomment'>
+                <p ng-repeat='comm in newpost.comments' >
                   <!-- {{newpost.comments}} -->
                   {{comm}}
                 </p>
               </div>
 
-                <form class="form-inline" ng-submit="$ctrl.comment(newpost, commenttext)"
+                <form class="form-inline" ng-submit="$ctrl.comment(newpost)"
                  >
                   <div class="form-group"
 
                   >
-                    <input class="form-control" ng-model="commenttext">
+                    <input class="form-control" ng-model="$ctrl.commenttext.body">
                   </div>
                   <div class="form-group">
                     <input type="submit" class="btn btn-primary"

@@ -22,13 +22,13 @@ angular.module('app', [])
       }
     }
 
-    vm.doComment = function(){
-      if (this.hideComm == false) {
-        this.hideComm = true;
-      } else {
-        this.hideComm = false;
-      }
-    }
+    // vm.doComment = function(){
+    //   if (this.hideComm == false) {
+    //     this.hideComm = true;
+    //   } else {
+    //     this.hideComm = false;
+    //   }
+    // }
 
     vm.submit = function() {
       vm.newpost.votecount = 0;
@@ -48,21 +48,13 @@ angular.module('app', [])
       this.disabled
     }
 
-    vm.comment = function(newpost, newcomment) {
-      if(newcomment){
-      // console.log(vm.commenttext);
-      newpost.comments.push(newcomment);
-    } else{
-  console.log('nooooo!')
-    }
-      // console.log(newpost.comments);
-      if (newpost.comments.length == 1) {
-        vm.pluralcomment = " Comment";
-      } else {
-        vm.pluralcomment = " Comments";
+    vm.comment = function(newpost) {
+        newpost.comments.push(vm.commenttext.body);
+        console.log(vm.commenttext.body);
+        console.log(newpost.comments);
+        delete vm.commenttext.body;
       }
-      // delete newpost.comments.commenttext
-    }
+
     vm.upvote = function(newpost) {
       // console.log(newpost)
       // console.log(newpost.votecount)
@@ -73,13 +65,15 @@ angular.module('app', [])
         newpost.votecount -= 1;
       }
     }
-    vm.togglecomments = function() {
+
+    vm.togglecomments = function(newpost) {
       if (vm.hidecomment == true) {
         vm.hidecomment = false;
       } else {
         vm.hidecomment = true;
       }
     }
+    
 vm.sortvar = function(sortBy){
   vm.sortBy = sortBy
   if(sortBy == '-votecount'){
