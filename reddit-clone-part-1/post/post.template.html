@@ -9,18 +9,14 @@
         </button>
       <a class="navbar-brand">Reddit Clone</a>
     </div>
-
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     </div>
   </div>
 </nav>
-
 <main class="container">
-
   <div class="pull-right">
     <p><a class="btn btn-info" ng-click='$ctrl.formtoggle()'>New Post</a></p>
   </div>
-
   <ul class="nav nav-pills">
     <li role="presentation" class="active">
       <input type="search" class="form-control input-sm search-form" placeholder="Filter" ng-model="$ctrl.filter">
@@ -28,7 +24,6 @@
     <li class="form-inline dropdown">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sort By {{ $ctrl.sortByWhat}} <span class="caret"></span>
       </a>
-
       <ul class="dropdown-menu">
         <li><a ng-click="$ctrl.sortvar('-votecount') ">Votes</a></li>
         <li><a ng-click="$ctrl.sortvar('created_at')">Date </a></li>
@@ -36,33 +31,26 @@
       </ul>
     </li>
   </ul>
-
   <div class="row">
     <div class="col-md-8">
-
       <form name="$ctrl.newpostform"  ng-submit="$ctrl.submit()"
       ng-if ="$ctrl.hidden">
         <div>
           <label for="title">Title</label>
-
           <input id="title" name="title" class="form-control" ng-model="$ctrl.newpost.title" ng-required="true" ng-class="{'error':$ctrl.newpostform.title.$touched && $ctrl.newpostform.title.$invalid}">
         </div>
-
         <div>
           <label for="body">Body</label>
           <textarea id="body" name="body" class="form-control" ng-model="$ctrl.newpost.body" ng-required="true" ng-class="{'error':$ctrl.newpostform.body.$touched && $ctrl.newpostform.body.$invalid}"></textarea>
         </div>
-
         <div>
           <label for="author">Author</label>
           <input id="author" name="author" class="form-control" ng-model="$ctrl.newpost.author" ng-required="true" ng-class="{'error':$ctrl.newpostform.author.$touched && $ctrl.newpostform.author.$invalid}">
         </div>
-
         <div>
           <label for="image-url">Image URL</label>
           <input id="image-url" name="image" class="form-control" ng-model="$ctrl.newpost.image" ng-required="true" ng-class="{'error':$ctrl.newpostform.image.$touched && $ctrl.newpostform.image.$invalid}">
         </div>
-
         <div class="form-gro">
           <button type="submit" class="btn btn-primary" ng-disabled="$ctrl.newpostform.$invalid"
           >
@@ -70,13 +58,10 @@
           </button>
         </div>
       </form>
-
     </div>
   </div>
-
   <div class="row">
     <div class="col-md-12">
-
       <div class="well" ng-repeat="newpost in $ctrl.posts | orderBy:$ctrl.sortBy | filter: $ctrl.filter" >
         <div class="media-left">
           <img class="media-object" ng-src={{newpost.image}}>
@@ -103,46 +88,35 @@
             ng-pluralize count="newpost.comments.length"
                  when="{'0': '0 Comments',
                      'one': '1 Comment',
-                     'other': '{} Comments' }"
-
-            >
-                <!-- {{newpost.comments.length}} {{$ctrl.pluralcomment}} -->
+                     'other': '{} Comments' }">
               </a>
           </div>
-
           <div class="row"
           ng-if='newpost.hidecomment' >
             <div class="col-md-offset-1" >
               <hr>
               <div>
                 <div>
-
                 </div>
                 <p ng-repeat='comm in newpost.comments' >
-                  <!-- {{newpost.comments}} -->
                   {{comm}}
                 </p>
               </div>
-
                 <form class="form-inline" ng-submit="$ctrl.comment(newpost)"
                  >
                   <div class="form-group"
-
                   >
                     <input class="form-control" ng-model="$ctrl.commenttext.body">
                   </div>
                   <div class="form-group">
-                    <input type="submit" class="btn btn-primary"
-
-                    >
+                    <input type="submit" class="btn btn-primary">
                   </div>
                 </form>
               </div>
             </div>
           </div>
         </div>
-
-      </div><!--closing new post div-->
+      </div>
     </div>
   </div>
 </main>
